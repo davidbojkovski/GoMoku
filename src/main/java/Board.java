@@ -97,7 +97,6 @@ public class Board extends JFrame {
     public class MyMouseListener implements MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {
-            // TODO Auto-generated method stub
             if (!(isWinner(p1)) && !(isWinner(p2))) {
                 if (e.getX() <= 600 && e.getY() <= 600 && isValid(e.getY() / 40, e.getX() / 40)) {
                     if (p1turn == true) {
@@ -117,25 +116,21 @@ public class Board extends JFrame {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void mouseEntered(MouseEvent e) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-            // TODO Auto-generated method stub
 
         }
     }
@@ -336,7 +331,6 @@ public class Board extends JFrame {
     public class NewGameAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            // TODO Auto-generated method stub
             newGame();
         }
     }
@@ -364,7 +358,6 @@ public class Board extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            // TODO Auto-generated method stub
             saveGame("Gomoku.txt");
         }
 
@@ -414,7 +407,6 @@ public class Board extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            // TODO Auto-generated method stub
             loadGame("Gomoku.txt");
         }
 
