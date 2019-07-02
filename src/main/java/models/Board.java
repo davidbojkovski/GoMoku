@@ -20,7 +20,7 @@ public class Board extends JFrame {
     private static final String player2 = "Player 2";
 
 
-    Board() {
+    public Board() {
         pieces = new Piece[15][15]; // 15x15 board
         p1 = new Player(1);
         p2 = new Player(2);
