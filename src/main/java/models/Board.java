@@ -10,23 +10,22 @@ import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
+import static constants.Constants.*;
+
 public class Board extends JFrame {
     private Piece[][] pieces;
     private Player p1;
     private Player p2;
     private boolean p1turn = true;
     private JTextField text;
-    private static final String player1 = "Player 1";
-    private static final String player2 = "Player 2";
-
 
     public Board() {
-        pieces = new Piece[15][15]; // 15x15 board
+        pieces = new Piece[BOARD_NUMBER_OF_PIECES][BOARD_NUMBER_OF_PIECES]; // 15x15 board
         p1 = new Player(1);
         p2 = new Player(2);
 
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
+        for (int i = 0; i < BOARD_NUMBER_OF_PIECES; i++) {
+            for (int j = 0; j < BOARD_NUMBER_OF_PIECES; j++) {
                 pieces[i][j] = new Piece(i, j);
             }
         }
@@ -37,18 +36,18 @@ public class Board extends JFrame {
     public void makeBoard() {
         //this.setLayout(new GridLayout(14,14,0,0));
         this.setLayout(new BorderLayout());
-        this.setTitle("GoMoku");
+        this.setTitle(GOMOKU_TITLE);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(620, 690);
+        this.setSize(BOARD_VIEW_WIDTH, BOARD_VIEW_HEIGHT);
 
 
-        JMenuItem mi1 = new JMenuItem("Save");
+        JMenuItem mi1 = new JMenuItem(J_MENU_ITEM_SAVE);
         mi1.addActionListener(new SaveGameAction());
-        JMenuItem mi2 = new JMenuItem("Load");
+        JMenuItem mi2 = new JMenuItem(J_MENU_ITEM_LOAD);
         mi2.addActionListener(new LoadGameAction());
-        JMenuItem mi3 = new JMenuItem("New Game");
+        JMenuItem mi3 = new JMenuItem(J_MENU_ITEM_NEW_GAME);
         mi3.addActionListener(new NewGameAction());
-        JMenu m1 = new JMenu("File");
+        JMenu m1 = new JMenu(J_MENU_FILE);
         m1.add(mi3);
         m1.add(mi1);
         m1.add(mi2);
@@ -62,7 +61,7 @@ public class Board extends JFrame {
         this.add(boardpanel, BorderLayout.CENTER);
 
         JPanel textpanel = new JPanel();
-        text = new JTextField(30);
+        text = new JTextField(J_TEXT_FIELD_NUMBER_OF_COLUMNS);
         text.setEditable(false);
         textpanel.add(text);
         this.add(textpanel, BorderLayout.PAGE_END);
@@ -82,14 +81,14 @@ public class Board extends JFrame {
                 g.drawLine(0, i, 600, i);
             }
 
-            for (int i = 0; i < 15; i++) {
-                for (int j = 0; j < 15; j++) {
+            for (int i = 0; i < BOARD_NUMBER_OF_PIECES; i++) {
+                for (int j = 0; j < BOARD_NUMBER_OF_PIECES; j++) {
                     if (pieces[i][j].getColor() == 1) {
                         g.setColor(Color.BLUE);
-                        g.fillOval(j * 40, i * 40, 39, 39);
+                        g.fillOval(j * BOARD_PIECE_SIZE, i * BOARD_PIECE_SIZE, BOARD_PIECE_SIZE - 1, BOARD_PIECE_SIZE - 1);
                     } else if (pieces[i][j].getColor() == 2) {
                         g.setColor(Color.RED);
-                        g.fillOval(j * 40, i * 40, 39, 39);
+                        g.fillOval(j * BOARD_PIECE_SIZE, i * BOARD_PIECE_SIZE, BOARD_PIECE_SIZE - 1, BOARD_PIECE_SIZE - 1);
                     }
                 }
             }
@@ -101,14 +100,14 @@ public class Board extends JFrame {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (!(isWinner(p1)) && !(isWinner(p2))) {
-                if (e.getX() <= 600 && e.getY() <= 600 && isValid(e.getY() / 40, e.getX() / 40)) {
+                if (e.getX() <= BOARD_GAME_AREA && e.getY() <= BOARD_GAME_AREA && isValid(e.getY() / BOARD_PIECE_SIZE, e.getX() / BOARD_PIECE_SIZE)) {
                     if (p1turn == true) {
-                        setPieceColor(p1, (e.getY()) / 40, (e.getX()) / 40);
+                        setPieceColor(p1, (e.getY()) / BOARD_PIECE_SIZE, (e.getX()) / BOARD_PIECE_SIZE);
                         repaint();
                         printBoard();
                         setp1turn(false);
                     } else {
-                        setPieceColor(p2, (e.getY()) / 40, (e.getX()) / 40);
+                        setPieceColor(p2, (e.getY()) / BOARD_PIECE_SIZE, (e.getX()) / BOARD_PIECE_SIZE);
                         repaint();
                         printBoard();
                         setp1turn(true);
@@ -258,8 +257,8 @@ public class Board extends JFrame {
     }
 
     public boolean isWinner(Player p) {
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
+        for (int i = 0; i < BOARD_NUMBER_OF_PIECES; i++) {
+            for (int j = 0; j < BOARD_NUMBER_OF_PIECES; j++) {
 
                 int ver = checkvertical(p, i, j);
                 int hor = checkhorisontal(p, i, j);
@@ -297,21 +296,21 @@ public class Board extends JFrame {
         }
 
         if (isWinner(p1))
-            text.setText(player1 + " winner");
+            text.setText(PLAYER_1_NAME + " winner");
         else
-            text.setText(player2 + " winner");
+            text.setText(PLAYER_2_NAME + " winner");
     }
 
     public void setOutput() {
         if (p1turn)
-            text.setText(player1 + "'s turn");
+            text.setText(PLAYER_1_NAME + "'s turn");
         else
-            text.setText(player2 + "'s turn");
+            text.setText(PLAYER_2_NAME + "'s turn");
     }
 
     public void printBoard() {
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
+        for (int i = 0; i < BOARD_NUMBER_OF_PIECES; i++) {
+            for (int j = 0; j < BOARD_NUMBER_OF_PIECES; j++) {
                 System.out.print(pieces[i][j]);
             }
             System.out.println();
@@ -320,8 +319,8 @@ public class Board extends JFrame {
     }
 
     public void newGame() {
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
+        for (int i = 0; i < BOARD_NUMBER_OF_PIECES; i++) {
+            for (int j = 0; j < BOARD_NUMBER_OF_PIECES; j++) {
                 pieces[i][j].setColor(0);
             }
         }
@@ -342,7 +341,7 @@ public class Board extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            FileManager.getInstance().saveGame("Gomoku.txt", pieces);
+            FileManager.getInstance().saveGame(FILENAME, pieces);
         }
     }
 
@@ -352,8 +351,8 @@ public class Board extends JFrame {
 
         int numberofpieces = 0;
 
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
+        for (int i = 0; i < BOARD_NUMBER_OF_PIECES; i++) {
+            for (int j = 0; j < BOARD_NUMBER_OF_PIECES; j++) {
                 if (pieces[i][j].getColor() != 0) {
                     numberofpieces++;
                 }
@@ -373,7 +372,7 @@ public class Board extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            loadGame("Gomoku.txt");
+            loadGame(FILENAME);
         }
     }
 

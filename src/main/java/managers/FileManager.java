@@ -4,11 +4,14 @@ import models.Piece;
 
 import java.io.*;
 
+import static constants.Constants.BOARD_NUMBER_OF_PIECES;
+import static constants.Constants.REGEX;
+
 public class FileManager {
     private static final FileManager instance = new FileManager();
+
     private BufferedReader reader;
     private BufferedWriter writer;
-
 
     private FileManager() {
     }
@@ -22,9 +25,9 @@ public class FileManager {
             StringBuilder builder = new StringBuilder();
             for (Piece[] piece : pieces) {
                 for (int j = 0; j < pieces.length; j++) {
-                    builder.append(piece[j] + "");
+                    builder.append(piece[j]);
                     if (j < pieces.length - 1)
-                        builder.append(",");
+                        builder.append(REGEX);
                 }
                 builder.append("\n");
             }
@@ -42,14 +45,15 @@ public class FileManager {
     }
 
     public Piece[][] loadGame(String filename) {
-        Piece[][] pieces = new Piece[15][15];
+        Piece[][] pieces = new Piece[BOARD_NUMBER_OF_PIECES][BOARD_NUMBER_OF_PIECES];
 
         try {
             reader = new BufferedReader(new FileReader(filename));
-            String line = "";
+            String line;
             int row = 0;
+
             while ((line = reader.readLine()) != null) {
-                String[] elements = line.split(",");
+                String[] elements = line.split(REGEX);
                 int col = 0;
                 for (String pieceFromFile : elements) {
                     pieces[row][col].setColor(Integer.parseInt(pieceFromFile));
