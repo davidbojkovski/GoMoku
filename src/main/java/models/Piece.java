@@ -1,3 +1,5 @@
+package models;
+
 public class Piece {
     //location
     private int row ;

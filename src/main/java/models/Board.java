@@ -1,14 +1,17 @@
+package models;
+
+import managers.FileManager;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.*;
 
 import javax.swing.*;
 
 public class Board extends JFrame {
-    private Piece pieces[][];
+    private Piece[][] pieces;
     private Player p1;
     private Player p2;
     private boolean p1turn = true;
@@ -335,72 +338,35 @@ public class Board extends JFrame {
         }
     }
 
-    public void saveGame(String filename) {
-        try {
-            StringBuilder builder = new StringBuilder();
-            for (Piece[] piece : pieces) {
-                for (int j = 0; j < pieces.length; j++) {
-                    builder.append(piece[j] + "");
-                    if (j < pieces.length - 1)
-                        builder.append(",");
-                }
-                builder.append("\n");//append new line at the end of the row
-            }
-            //builder.append(String.valueOf(p1turn)) ;
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-            writer.write(builder.toString());
-            writer.close();
-        } catch (IOException ex) {
-        }
-    }
-
     public class SaveGameAction implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            saveGame("Gomoku.txt");
+            FileManager.getInstance().saveGame("Gomoku.txt", pieces);
         }
-
     }
 
 
     public void loadGame(String filename) {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filename));
-            String line = "";
-            int row = 0;
-            while ((line = reader.readLine()) != null) {
-                String[] cols = line.split(",");
-                int col = 0;
-                for (String c : cols) {
-                    pieces[row][col].setColor(Integer.parseInt(c));
-                    col++;
-                }
-                row++;
-            }
-            reader.close();
+        pieces = FileManager.getInstance().loadGame(filename);
 
-            int numberofpieces = 0;
+        int numberofpieces = 0;
 
-            for (int i = 0; i < 15; i++) {
-                for (int j = 0; j < 15; j++) {
-                    if (pieces[i][j].getColor() != 0) {
-                        numberofpieces++;
-                    }
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                if (pieces[i][j].getColor() != 0) {
+                    numberofpieces++;
                 }
             }
-
-            if (numberofpieces % 2 == 0) {
-                setp1turn(true);
-            } else {
-                setp1turn(false);
-            }
-
-
-            repaint();
-        } catch (IOException ex) {
         }
 
+        if (numberofpieces % 2 == 0) {
+            setp1turn(true);
+        } else {
+            setp1turn(false);
+        }
+
+        repaint();
     }
 
     public class LoadGameAction implements ActionListener {
@@ -409,7 +375,6 @@ public class Board extends JFrame {
         public void actionPerformed(ActionEvent e) {
             loadGame("Gomoku.txt");
         }
-
     }
 
 }
