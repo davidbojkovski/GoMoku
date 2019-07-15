@@ -16,6 +16,8 @@ public class Constants {
     public static final int BOARD_NUMBER_OF_PIECES = 15;
     public static final int BOARD_PIECE_SIZE = BOARD_GAME_AREA / BOARD_NUMBER_OF_PIECES;
 
+    public static final int BOARD_EMPTY_FIELD = 0;
+
     public static final String FILENAME = "Gomoku.txt";
     public static final String REGEX = ",";
 }

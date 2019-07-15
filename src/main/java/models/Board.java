@@ -2,22 +2,13 @@ package models;
 
 import managers.FileManager;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-import javax.swing.*;
-
 import static constants.Constants.*;
 
-public class Board extends JFrame {
+public class Board {
     private Piece[][] pieces;
     private Player p1;
     private Player p2;
-    private boolean p1turn = true;
-    private JTextField text;
+    private boolean player1Move = true;
 
     public Board() {
         pieces = new Piece[BOARD_NUMBER_OF_PIECES][BOARD_NUMBER_OF_PIECES]; // 15x15 board
@@ -30,110 +21,22 @@ public class Board extends JFrame {
             }
         }
 
-        makeBoard();
     }
 
-    public void makeBoard() {
-        //this.setLayout(new GridLayout(14,14,0,0));
-        this.setLayout(new BorderLayout());
-        this.setTitle(GOMOKU_TITLE);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(BOARD_VIEW_WIDTH, BOARD_VIEW_HEIGHT);
 
-
-        JMenuItem mi1 = new JMenuItem(J_MENU_ITEM_SAVE);
-        mi1.addActionListener(new SaveGameAction());
-        JMenuItem mi2 = new JMenuItem(J_MENU_ITEM_LOAD);
-        mi2.addActionListener(new LoadGameAction());
-        JMenuItem mi3 = new JMenuItem(J_MENU_ITEM_NEW_GAME);
-        mi3.addActionListener(new NewGameAction());
-        JMenu m1 = new JMenu(J_MENU_FILE);
-        m1.add(mi3);
-        m1.add(mi1);
-        m1.add(mi2);
-        JMenuBar bar = new JMenuBar();
-        bar.add(m1);
-        this.setJMenuBar(bar);
-
-        JPanel boardpanel = new DrawLines();
-        boardpanel.addMouseListener(new MyMouseListener());
-        //boardpanel.add(new drawCircles());
-        this.add(boardpanel, BorderLayout.CENTER);
-
-        JPanel textpanel = new JPanel();
-        text = new JTextField(J_TEXT_FIELD_NUMBER_OF_COLUMNS);
-        text.setEditable(false);
-        textpanel.add(text);
-        this.add(textpanel, BorderLayout.PAGE_END);
-
-        this.setVisible(true);
-        this.setResizable(false);
+    public Piece[][] getPieces() {
+        return pieces;
     }
 
-    public class DrawLines extends JPanel {
-        public DrawLines() {
-        }
-
-        public void paintComponent(Graphics g) {
-            for (int i = 0; i <= 600; i += 40) {
-                g.setColor(Color.BLACK);
-                g.drawLine(i, 0, i, 600);
-                g.drawLine(0, i, 600, i);
-            }
-
-            for (int i = 0; i < BOARD_NUMBER_OF_PIECES; i++) {
-                for (int j = 0; j < BOARD_NUMBER_OF_PIECES; j++) {
-                    if (pieces[i][j].getColor() == 1) {
-                        g.setColor(Color.BLUE);
-                        g.fillOval(j * BOARD_PIECE_SIZE, i * BOARD_PIECE_SIZE, BOARD_PIECE_SIZE - 1, BOARD_PIECE_SIZE - 1);
-                    } else if (pieces[i][j].getColor() == 2) {
-                        g.setColor(Color.RED);
-                        g.fillOval(j * BOARD_PIECE_SIZE, i * BOARD_PIECE_SIZE, BOARD_PIECE_SIZE - 1, BOARD_PIECE_SIZE - 1);
-                    }
-                }
-            }
-
-        }
+    public Piece getPiece(int row, int column){
+        return pieces[row][column];
     }
 
-    public class MyMouseListener implements MouseListener {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (!(isWinner(p1)) && !(isWinner(p2))) {
-                if (e.getX() <= BOARD_GAME_AREA && e.getY() <= BOARD_GAME_AREA && isValid(e.getY() / BOARD_PIECE_SIZE, e.getX() / BOARD_PIECE_SIZE)) {
-                    if (p1turn == true) {
-                        setPieceColor(p1, (e.getY()) / BOARD_PIECE_SIZE, (e.getX()) / BOARD_PIECE_SIZE);
-                        repaint();
-                        printBoard();
-                        setp1turn(false);
-                    } else {
-                        setPieceColor(p2, (e.getY()) / BOARD_PIECE_SIZE, (e.getX()) / BOARD_PIECE_SIZE);
-                        repaint();
-                        printBoard();
-                        setp1turn(true);
-                    }
-                }
+    public void setPieces(Piece[][] _pieces){
+        for (int i = 0; i < BOARD_NUMBER_OF_PIECES; i++) {
+            for (int j = 0; j < BOARD_NUMBER_OF_PIECES; j++) {
+                this.pieces[i][j] = _pieces[i][j];
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
         }
     }
 
@@ -144,15 +47,19 @@ public class Board extends JFrame {
 
     // checks if the field is empty
     public boolean isValid(int row, int column) {
-        if (pieces[row][column].getColor() == 0)
+        if (pieces[row][column].getColor() == BOARD_EMPTY_FIELD)
             return true;
         else
             return false;
     }
 
     // changes the turn
-    public void setp1turn(boolean b) {
-        p1turn = b;
+    public void setPlayer1Move(boolean b) {
+        player1Move = b;
+    }
+
+    public boolean getPlayer1Move(){
+        return player1Move;
     }
 
     public int checkvertical(Player p, int row, int column) {
@@ -284,7 +191,7 @@ public class Board extends JFrame {
         return true;
     }
 
-    public void runGame() {
+   /* public void runGame() {
         while (!(isWinner(p1)) && !(isWinner(p2))) {
             setOutput();
 
@@ -302,12 +209,12 @@ public class Board extends JFrame {
     }
 
     public void setOutput() {
-        if (p1turn)
+        if (player1Move)
             text.setText(PLAYER_1_NAME + "'s turn");
         else
             text.setText(PLAYER_2_NAME + "'s turn");
     }
-
+*/
     public void printBoard() {
         for (int i = 0; i < BOARD_NUMBER_OF_PIECES; i++) {
             for (int j = 0; j < BOARD_NUMBER_OF_PIECES; j++) {
@@ -316,64 +223,6 @@ public class Board extends JFrame {
             System.out.println();
         }
         System.out.println();
-    }
-
-    public void newGame() {
-        for (int i = 0; i < BOARD_NUMBER_OF_PIECES; i++) {
-            for (int j = 0; j < BOARD_NUMBER_OF_PIECES; j++) {
-                pieces[i][j].setColor(0);
-            }
-        }
-
-        setp1turn(true);
-        setOutput();
-        repaint();
-    }
-
-    public class NewGameAction implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            newGame();
-        }
-    }
-
-    public class SaveGameAction implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            FileManager.getInstance().saveGame(FILENAME, pieces);
-        }
-    }
-
-
-    public void loadGame(String filename) {
-        pieces = FileManager.getInstance().loadGame(filename);
-
-        int numberofpieces = 0;
-
-        for (int i = 0; i < BOARD_NUMBER_OF_PIECES; i++) {
-            for (int j = 0; j < BOARD_NUMBER_OF_PIECES; j++) {
-                if (pieces[i][j].getColor() != 0) {
-                    numberofpieces++;
-                }
-            }
-        }
-
-        if (numberofpieces % 2 == 0) {
-            setp1turn(true);
-        } else {
-            setp1turn(false);
-        }
-
-        repaint();
-    }
-
-    public class LoadGameAction implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            loadGame(FILENAME);
-        }
     }
 
 }
