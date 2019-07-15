@@ -1,9 +1,11 @@
 package controllers;
 
+import game.GameValidation;
 import managers.FileManager;
 import models.Board;
 import models.NullPlayer;
 import models.Piece;
+import models.Player;
 import views.BoardView;
 
 import java.awt.event.ActionEvent;
@@ -24,7 +26,7 @@ public class BoardController {
         boardView.addLoadGameAction(new LoadGameAction());
         boardView.addSaveGameAction(new SaveGameAction());
         boardView.addNewGameAction(new NewGameAction());
-      //  boardView.addMouseListener(new BoardMouseListener());
+        boardView.addMouseListener(new BoardMouseListener());
     }
 
     public class NewGameAction implements ActionListener {
@@ -78,22 +80,32 @@ public class BoardController {
             boardView.repaint();
         }
     }
-/*
+
     public class BoardMouseListener implements MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (!(isWinner(p1)) && !(isWinner(p2))) {
-                if (e.getX() <= BOARD_GAME_AREA && e.getY() <= BOARD_GAME_AREA && isValid(e.getY() / BOARD_PIECE_SIZE, e.getX() / BOARD_PIECE_SIZE)) {
-                    if (p1turn == true) {
-                        setPieceColor(p1, (e.getY()) / BOARD_PIECE_SIZE, (e.getX()) / BOARD_PIECE_SIZE);
-                        repaint();
-                        printBoard();
-                        setp1turn(false);
-                    } else {
-                        setPieceColor(p2, (e.getY()) / BOARD_PIECE_SIZE, (e.getX()) / BOARD_PIECE_SIZE);
+            Piece[][] pieces = board.getPieces();
+            Player player1 = board.getPlayer1();
+            Player player2 = board.getPlayer2();
+
+            if (!(GameValidation.getInstance().isWinner(pieces, player1) &&!(GameValidation.getInstance().isWinner(pieces, player2)))) {
+                if (e.getX() <= BOARD_GAME_AREA && e.getY() <= BOARD_GAME_AREA && board.isValid(e.getY() / BOARD_PIECE_SIZE, e.getX() / BOARD_PIECE_SIZE)) {
+                    if (board.getPlayer1Move()) {
+                        board.setPieceColor(player1, (e.getY()) / BOARD_PIECE_SIZE, (e.getX()) / BOARD_PIECE_SIZE);
                         boardView.repaint();
-                        printBoard();
-                        setp1turn(true);
+
+                        //TODO implement later
+                        //printBoard();
+
+                        board.setPlayer1Move(false);
+                    } else {
+                        board.setPieceColor(player2, (e.getY()) / BOARD_PIECE_SIZE, (e.getX()) / BOARD_PIECE_SIZE);
+                        boardView.repaint();
+
+                        //TODO implement later
+                        //printBoard();
+
+                        board.setPlayer1Move(true);
                     }
                 }
             }
@@ -119,6 +131,6 @@ public class BoardController {
 
         }
     }
-    */
+
 
 }
