@@ -4,8 +4,7 @@ import game.TextOutput;
 import models.Board;
 import views.BoardView;
 
-import static constants.Constants.PLAYER_1_NAME;
-import static constants.Constants.PLAYER_2_NAME;
+import static constants.Constants.*;
 
 public class GoMoku {
 
@@ -16,16 +15,16 @@ public class GoMoku {
             boardView.setTextFieldOutput(TextOutput.getInstance().moveOutput(board.getPlayer1Move()));
 
             if (GameValidation.getInstance().isDraw(board)) {
-                boardView.setTextFieldOutput("It's a draw");
+                boardView.setTextFieldOutput(GOMOKU_DRAW_GAME);
                 break;
             }
 
         }
 
         if (GameValidation.getInstance().isWinner(board.getPieces(), board.getPlayer1()))
-            boardView.setTextFieldOutput(PLAYER_1_NAME + " winner");
+            boardView.setTextFieldOutput(PLAYER_1_WINNER);
         else
-            boardView.setTextFieldOutput(PLAYER_2_NAME + " winner");
+            boardView.setTextFieldOutput(PLAYER_2_WINNER);
 
     }
 

@@ -5,8 +5,7 @@ import models.Piece;
 import javax.swing.*;
 import java.awt.*;
 
-import static constants.Constants.BOARD_NUMBER_OF_PIECES;
-import static constants.Constants.BOARD_PIECE_SIZE;
+import static constants.Constants.*;
 
 public class BoardPanel extends JPanel {
     private Piece[][] pieces;
@@ -16,10 +15,10 @@ public class BoardPanel extends JPanel {
     }
 
     public void paintComponent(Graphics g) {
-        for (int i = 0; i <= 600; i += 40) {
+        for (int i = 0; i <= BOARD_GAME_AREA; i += 40) {
             g.setColor(Color.BLACK);
-            g.drawLine(i, 0, i, 600);
-            g.drawLine(0, i, 600, i);
+            g.drawLine(i, 0, i, BOARD_GAME_AREA);
+            g.drawLine(0, i, BOARD_GAME_AREA, i);
         }
 
         for (int i = 0; i < BOARD_NUMBER_OF_PIECES; i++) {

@@ -9,7 +9,7 @@ import static constants.Constants.BOARD_NUMBER_OF_PIECES;
 public class GameValidation {
     private static final GameValidation instance = new GameValidation();
 
-    public static GameValidation getInstance(){
+    public static GameValidation getInstance() {
         return instance;
     }
 
@@ -42,104 +42,104 @@ public class GameValidation {
     }
 
     public int checkVertical(Piece[][] pieces, Player player, int row, int column) {
-        int samecolor = 0;
+        int sameColor = 0;
         /* check until 10, not to step out of bounds of the board */
         if (row <= 10) {
             if (pieces[row][column].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
             if (pieces[row + 1][column].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
             if (pieces[row + 2][column].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
             if (pieces[row + 3][column].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
             if (pieces[row + 4][column].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
         }
-        return samecolor;
+        return sameColor;
     }
 
     public int checkHorizontal(Piece[][] pieces, Player player, int row, int column) {
-        int samecolor = 0;
+        int sameColor = 0;
 
         /* check until 10, not to step out of bounds of the board */
         if (column <= 10) {
             if (pieces[row][column].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
 
             if (pieces[row][column + 1].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
 
             if (pieces[row][column + 2].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
 
             if (pieces[row][column + 3].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
             if (pieces[row][column + 4].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
         }
 
-        return samecolor;
+        return sameColor;
     }
 
     public int checkRightDiagonal(Piece[][] pieces, Player player, int row, int column) {
-        int samecolor = 0;
+        int sameColor = 0;
 
         /* check until 10, not to step out of bounds of the board */
         if (row <= 10 && column <= 10) {
             if (pieces[row][column].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
             if (pieces[row + 1][column + 1].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
             if (pieces[row + 2][column + 2].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
             if (pieces[row + 3][column + 3].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
             if (pieces[row + 4][column + 4].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
         }
 
-        return samecolor;
+        return sameColor;
     }
 
     public int checkLeftDiagonal(Piece[][] pieces, Player player, int row, int column) {
-        int samecolor = 0;
+        int sameColor = 0;
 
         /* check until 10, not to step out of bounds of the board */
         if (row <= 10 && column >= 4) {
             if (pieces[row][column].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
             if (pieces[row + 1][column - 1].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
             if (pieces[row + 2][column - 2].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
             if (pieces[row + 3][column - 3].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
             if (pieces[row + 4][column - 4].getColor() == player.getColor()) {
-                samecolor += 1;
+                sameColor += 1;
             }
         }
 
-        return samecolor;
+        return sameColor;
     }
 
 }

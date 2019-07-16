@@ -60,11 +60,11 @@ public class BoardView extends JFrame {
         newGameMenuItem.addActionListener(newGameListener);
     }
 
-    public void addMouseListener(MouseListener mouseListener){
+    public void addMouseListener(MouseListener mouseListener) {
         boardPanel.addMouseListener(mouseListener);
     }
 
-    public void setTextFieldOutput(String text){
+    public void setTextFieldOutput(String text) {
         textField.setText(text);
     }
 }

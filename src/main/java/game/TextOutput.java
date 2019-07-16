@@ -8,17 +8,18 @@ import static constants.Constants.BOARD_NUMBER_OF_PIECES;
 public class TextOutput {
     private static final TextOutput instance = new TextOutput();
 
-    private TextOutput(){}
+    private TextOutput() {
+    }
 
-    public static TextOutput getInstance(){
+    public static TextOutput getInstance() {
         return instance;
     }
 
-    public String moveOutput(boolean player1Move){
-        return player1Move ? PLAYER_1_NAME + "'s turn" : PLAYER_2_NAME + "'s turn";
+    public String moveOutput(boolean player1Move) {
+        return player1Move ? PLAYER_1_TURN : PLAYER_2_TURN;
     }
 
-    public void printBoardToConsole(Piece[][] pieces){
+    public void printBoardToConsole(Piece[][] pieces) {
         for (int i = 0; i < BOARD_NUMBER_OF_PIECES; i++) {
             for (int j = 0; j < BOARD_NUMBER_OF_PIECES; j++) {
                 System.out.print(pieces[i][j]);
@@ -27,6 +28,4 @@ public class TextOutput {
         }
         System.out.println();
     }
-
-
 }

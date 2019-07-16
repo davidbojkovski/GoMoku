@@ -2,7 +2,14 @@ package constants;
 
 public class Constants {
     public static final String PLAYER_1_NAME = "Player 1";
+    public static final String PLAYER_1_WINNER = PLAYER_1_NAME + " winner";
     public static final String PLAYER_2_NAME = "Player 2";
+    public static final String PLAYER_2_WINNER = PLAYER_2_NAME + " winner";
+    public static final String PLAYER_1_TURN = PLAYER_1_NAME + "'s turn";
+    public static final String PLAYER_2_TURN = PLAYER_2_NAME + "'s turn";
+
+    public static final String GOMOKU_DRAW_GAME = "It's a draw";
+
     public static final String GOMOKU_TITLE = "Gomoku";
     public static final int BOARD_VIEW_WIDTH = 620;
     public static final int BOARD_VIEW_HEIGHT = 690;

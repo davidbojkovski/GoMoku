@@ -38,8 +38,8 @@ public class FileManager {
         } finally {
             try {
                 writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException exception) {
+                exception.printStackTrace();
             }
         }
     }
@@ -69,13 +69,13 @@ public class FileManager {
                 }
                 row++;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
         } finally {
             try {
                 reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException exception) {
+                exception.printStackTrace();
             }
         }
 

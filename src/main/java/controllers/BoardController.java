@@ -60,17 +60,17 @@ public class BoardController {
             Piece[][] piecesFromFile = FileManager.getInstance().loadGame(FILENAME);
             board.setPieces(piecesFromFile);
 
-            int numberofpieces = 0;
+            int numberOfPieces = 0;
 
             for (int i = 0; i < BOARD_NUMBER_OF_PIECES; i++) {
                 for (int j = 0; j < BOARD_NUMBER_OF_PIECES; j++) {
                     if (board.getPiece(i, j).getColor() != BOARD_EMPTY_FIELD) {
-                        numberofpieces++;
+                        numberOfPieces++;
                     }
                 }
             }
 
-            if (numberofpieces % 2 == 0) {
+            if (numberOfPieces % 2 == 0) {
                 board.setPlayer1Move(true);
                 boardView.setTextFieldOutput(TextOutput.getInstance().moveOutput(true));
             } else {
@@ -89,7 +89,7 @@ public class BoardController {
             Player player1 = board.getPlayer1();
             Player player2 = board.getPlayer2();
 
-            if (!(GameValidation.getInstance().isWinner(pieces, player1) &&!(GameValidation.getInstance().isWinner(pieces, player2)))) {
+            if (!(GameValidation.getInstance().isWinner(pieces, player1) && !(GameValidation.getInstance().isWinner(pieces, player2)))) {
                 if (e.getX() <= BOARD_GAME_AREA && e.getY() <= BOARD_GAME_AREA && board.isValid(e.getY() / BOARD_PIECE_SIZE, e.getX() / BOARD_PIECE_SIZE)) {
                     if (board.getPlayer1Move()) {
                         board.setPieceColor(player1, (e.getY()) / BOARD_PIECE_SIZE, (e.getX()) / BOARD_PIECE_SIZE);
