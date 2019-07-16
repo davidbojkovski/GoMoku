@@ -1,6 +1,7 @@
 package controllers;
 
 import game.GameValidation;
+import game.TextOutput;
 import managers.FileManager;
 import models.Board;
 import models.NullPlayer;
@@ -39,10 +40,8 @@ public class BoardController {
             }
 
             board.setPlayer1Move(true);
-            //TODO implement later
-            // setOutput();
+            boardView.setTextFieldOutput(TextOutput.getInstance().moveOutput(true));
             boardView.repaint();
-
         }
     }
 
@@ -73,8 +72,10 @@ public class BoardController {
 
             if (numberofpieces % 2 == 0) {
                 board.setPlayer1Move(true);
+                boardView.setTextFieldOutput(TextOutput.getInstance().moveOutput(true));
             } else {
                 board.setPlayer1Move(false);
+                boardView.setTextFieldOutput(TextOutput.getInstance().moveOutput(false));
             }
 
             boardView.repaint();
@@ -94,18 +95,18 @@ public class BoardController {
                         board.setPieceColor(player1, (e.getY()) / BOARD_PIECE_SIZE, (e.getX()) / BOARD_PIECE_SIZE);
                         boardView.repaint();
 
-                        //TODO implement later
-                        //printBoard();
+                        TextOutput.getInstance().printBoardToConsole(board.getPieces());
 
                         board.setPlayer1Move(false);
+                        boardView.setTextFieldOutput(TextOutput.getInstance().moveOutput(false));
                     } else {
                         board.setPieceColor(player2, (e.getY()) / BOARD_PIECE_SIZE, (e.getX()) / BOARD_PIECE_SIZE);
                         boardView.repaint();
 
-                        //TODO implement later
-                        //printBoard();
+                        TextOutput.getInstance().printBoardToConsole(board.getPieces());
 
                         board.setPlayer1Move(true);
+                        boardView.setTextFieldOutput(TextOutput.getInstance().moveOutput(true));
                     }
                 }
             }

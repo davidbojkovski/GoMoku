@@ -16,6 +16,7 @@ public class BoardView extends JFrame {
     private JMenuItem loadMenuItem = new JMenuItem(J_MENU_ITEM_LOAD);
     private JMenuItem newGameMenuItem = new JMenuItem(J_MENU_ITEM_NEW_GAME);
     private JPanel boardPanel;
+    private JTextField textField;
 
     public BoardView(Board board) {
         this.board = board;
@@ -38,7 +39,7 @@ public class BoardView extends JFrame {
         this.add(boardPanel, BorderLayout.CENTER);
 
         JPanel textPanel = new JPanel();
-        JTextField textField = new JTextField(J_TEXT_FIELD_NUMBER_OF_COLUMNS);
+        textField = new JTextField(J_TEXT_FIELD_NUMBER_OF_COLUMNS);
         textField.setEditable(false);
         textPanel.add(textField);
         this.add(textPanel, BorderLayout.PAGE_END);
@@ -61,5 +62,9 @@ public class BoardView extends JFrame {
 
     public void addMouseListener(MouseListener mouseListener){
         boardPanel.addMouseListener(mouseListener);
+    }
+
+    public void setTextFieldOutput(String text){
+        textField.setText(text);
     }
 }

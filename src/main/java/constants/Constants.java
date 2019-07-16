@@ -1,7 +1,7 @@
 package constants;
 
 public class Constants {
-    public static final String PLAYER_1_NAME = "player 1";
+    public static final String PLAYER_1_NAME = "Player 1";
     public static final String PLAYER_2_NAME = "Player 2";
     public static final String GOMOKU_TITLE = "Gomoku";
     public static final int BOARD_VIEW_WIDTH = 620;
